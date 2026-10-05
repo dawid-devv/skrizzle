@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>Skrizzle</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <h1>Skrizzle</h1>
+  <p class="intro">
+    Port und Token stehen in der App unter „Knopf in Firefox“.
+  </p>
+
+  <label class="row">
+    <span>Port</span>
+    <input id="port" type="number" min="1024" max="65535" step="1" value="7337">
+  </label>
+
+  <label class="row">
+    <span>Token</span>
+    <input id="token" type="text" spellcheck="false" placeholder="32 Zeichen aus der App">
+  </label>
+
+  <div class="actions">
+    <button id="save" class="primary">Speichern</button>
+    <button id="test">Verbindung testen</button>
+  </div>
+
+  <p id="msg" class="msg"></p>
+
+  <!-- Einfuegen aus der Zwischenablage: die App kopiert beide Werte zusammen -->
+  <details class="paste">
+    <summary>Beides auf einmal einfügen</summary>
+    <p class="intro">
+      In der App „Beides kopieren“ drücken, hier einfügen — Port und Token
+      werden daraus gelesen.
+    </p>
+    <textarea id="bulk" rows="3" placeholder="Port: 7337&#10;Token: …"></textarea>
+    <button id="parse">Übernehmen</button>
+  </details>
+
+  <script src="options.js"></script>
+</body>
+</html>

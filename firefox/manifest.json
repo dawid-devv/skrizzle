@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Skrizzle",
+  "version": "0.1.0",
+  "description": "Legt auf YouTube einen Lade-Knopf an, der den Link an die Skrizzle-App übergibt.",
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "skrizzle@dawidsauer.local",
+      "strict_min_version": "115.0"
+    }
+  },
+
+  "permissions": ["storage"],
+  "host_permissions": ["http://127.0.0.1/*"],
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/*", "*://m.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+
+  "action": {
+    "default_title": "Skrizzle",
+    "default_popup": "options.html"
+  }
+}

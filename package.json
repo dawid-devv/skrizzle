@@ -1,0 +1,74 @@
+{
+  "name": "skrizzle",
+  "version": "0.1.0",
+  "description": "Video-Downloader: Link einwerfen, Datei landet im Zielordner.",
+  "main": "src/main/main.js",
+  "author": "Dawid Sauer",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/dev.js",
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win",
+    "test": "node test/content.test.js"
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "jsdom": "^29.1.1"
+  },
+  "build": {
+    "appId": "dev.skrizzle.app",
+    "productName": "Skrizzle",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "extraResources": [
+        {
+          "from": "vendor/mac",
+          "to": "bin",
+          "filter": [
+            "**/*",
+            "!.gitkeep"
+          ]
+        }
+      ],
+      "identity": "-",
+      "hardenedRuntime": false
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "extraResources": [
+        {
+          "from": "vendor/win",
+          "to": "bin",
+          "filter": [
+            "**/*",
+            "!.gitkeep"
+          ]
+        }
+      ]
+    },
+    "dmg": {
+      "sign": false
+    }
+  }
+}

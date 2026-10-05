@@ -1,0 +1,6 @@
+node_modules/
+dist/
+vendor/mac/*
+vendor/win/*
+!vendor/*/.gitkeep
+.DS_Store

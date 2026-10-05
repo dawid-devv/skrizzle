@@ -1,0 +1,100 @@
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --text: #15141a;
+  --muted: #5b5b66;
+  --line: #d7d7db;
+  --field: #ffffff;
+  --accent: #d6453a;
+  --ok: #1a7f44;
+  --err: #c53727;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #23222b;
+    --text: #fbfbfe;
+    --muted: #b1b1bb;
+    --line: #52525e;
+    --field: #1c1b22;
+    --accent: #e3564a;
+    --ok: #4ec97a;
+    --err: #ff6a5c;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 16px;
+  min-width: 330px;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+h1 { margin: 0 0 2px; font-size: 15px; }
+.intro { margin: 0 0 12px; color: var(--muted); font-size: 12px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.row > span {
+  flex: 0 0 52px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+input, textarea {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--field);
+  color: var(--text);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+input:focus, textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.actions { display: flex; gap: 8px; margin-top: 12px; }
+
+button {
+  padding: 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover { border-color: var(--text); }
+
+button.primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+button.primary:hover { filter: brightness(1.08); }
+
+.msg { margin: 10px 0 0; font-size: 12px; min-height: 1.2em; }
+.msg.ok { color: var(--ok); }
+.msg.err { color: var(--err); }
+
+.paste { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 10px; }
+.paste > summary { cursor: pointer; color: var(--muted); font-size: 12px; }
+.paste textarea { margin: 8px 0; resize: vertical; }

@@ -1,0 +1,162 @@
+/* Die Helligkeit misst content.js und setzt .skrizzle-dark bzw.
+   .skrizzle-light — auf dem Knopf und, getrennt davon, auf dem Menue.
+   YouTubes eigene Attribute und Variablen werden regelmaessig umbenannt
+   und taugen nicht als Grundlage.
+
+   Das Menue haengt am Seitenkoerper, nicht im Knopf, weil YouTubes
+   Knopfreihe ueberstehende Inhalte abschneidet. Darum sind seine Regeln
+   hier eigenstaendig und nicht unter #skrizzle-host verschachtelt.
+   Doppelte Klassennamen heben die Spezifitaet, damit YouTube nicht gewinnt. */
+
+#skrizzle-host,
+.skrizzle-menu.skrizzle-menu {
+  --sk-text: #0f0f0f;
+  --sk-menu: #ffffff;
+  --sk-line: rgba(0, 0, 0, 0.12);
+  --sk-shadow: rgba(0, 0, 0, 0.22);
+  --sk-accent: #c5352a;
+  --sk-ok: #1a7f44;
+}
+
+#skrizzle-host.skrizzle-dark,
+.skrizzle-menu.skrizzle-menu.skrizzle-dark {
+  --sk-text: #f1f1f1;
+  --sk-menu: #282828;
+  --sk-line: rgba(255, 255, 255, 0.16);
+  --sk-shadow: rgba(0, 0, 0, 0.5);
+  --sk-accent: #ff8278;
+  --sk-ok: #4ec97a;
+}
+
+/* --- der Knopf --- */
+
+#skrizzle-host {
+  position: relative;
+  display: inline-flex;
+  margin: 0 4px;
+  font-family: "YouTube Sans", Roboto, -apple-system, system-ui, sans-serif;
+  vertical-align: middle;
+}
+
+#skrizzle-host.skrizzle-floating {
+  position: fixed;
+  top: 72px;
+  right: 18px;
+  margin: 0;
+  z-index: 2147483000;
+}
+
+#skrizzle-host .skrizzle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 18px;
+  /* Flaeche aus der Textfarbe gemischt — passt sich jedem Untergrund an. */
+  background: color-mix(in srgb, var(--sk-text) 10%, transparent);
+  color: var(--sk-text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#skrizzle-host .skrizzle-btn:hover {
+  background: color-mix(in srgb, var(--sk-text) 20%, transparent);
+}
+
+/* Feste Breite. Ohne sie wuerde der Knopf bei jeder neuen Zahl seine Groesse
+   aendern und dabei "Teilen" und "Speichern" hin- und herschieben.
+   10ch fasst den laengsten regulaeren Text ("Abschluss"). */
+#skrizzle-host .skrizzle-label {
+  display: inline-block;
+  min-width: 10ch;
+  max-width: 10ch;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Fehlermeldungen duerfen breiter werden — das verschiebt die Reihe einmal,
+   aber nur im Fehlerfall, nicht bei jedem Prozentschritt. Der vollstaendige
+   Text steht im Tooltip. */
+#skrizzle-host.is-err .skrizzle-label {
+  min-width: 10ch;
+  max-width: 26ch;
+}
+
+#skrizzle-host .skrizzle-icon { width: 16px; height: 16px; flex: 0 0 auto; }
+#skrizzle-host .skrizzle-caret { font-size: 10px; opacity: 0.7; }
+
+/* Waehrend des Ladens fuellt sich der Knopf. --sk-progress setzt content.js
+   auf dem Wirtselement; eigene Eigenschaften vererben sich auf den Knopf. */
+#skrizzle-host.is-busy .skrizzle-btn {
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--sk-text) 32%, transparent) var(--sk-progress, 0%),
+    color-mix(in srgb, var(--sk-text) 10%, transparent) var(--sk-progress, 0%)
+  );
+  font-variant-numeric: tabular-nums;
+}
+
+#skrizzle-host.is-ok .skrizzle-btn {
+  background: color-mix(in srgb, var(--sk-ok) 18%, transparent);
+}
+#skrizzle-host.is-ok   .skrizzle-btn { color: var(--sk-ok); }
+#skrizzle-host.is-err  .skrizzle-btn { color: var(--sk-accent); }
+
+/* Bei Rueckmeldungen stoert das Pfeilchen nur */
+#skrizzle-host.is-ok .skrizzle-caret,
+#skrizzle-host.is-err .skrizzle-caret,
+#skrizzle-host.is-busy .skrizzle-caret { display: none; }
+
+/* --- das Menue, am Seitenkoerper --- */
+
+.skrizzle-menu.skrizzle-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483000;
+  min-width: 232px;
+  margin: 0;
+  padding: 6px;
+  border: 1px solid var(--sk-line);
+  border-radius: 10px;
+  background: var(--sk-menu);
+  box-shadow: 0 8px 24px var(--sk-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-family: "YouTube Sans", Roboto, -apple-system, system-ui, sans-serif;
+}
+
+.skrizzle-menu.skrizzle-menu[hidden] { display: none; }
+
+.skrizzle-menu.skrizzle-menu .skrizzle-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--sk-text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  text-transform: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.skrizzle-menu.skrizzle-menu .skrizzle-item:hover {
+  background: color-mix(in srgb, var(--sk-text) 12%, transparent);
+}

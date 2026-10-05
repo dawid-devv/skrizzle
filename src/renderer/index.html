@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:;">
+  <title>Skrizzle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="drag">
+    <h1>Skrizzle</h1>
+  </header>
+
+  <main>
+    <!-- Hinweis, falls yt-dlp oder ffmpeg fehlen -->
+    <section id="setup" class="setup" hidden>
+      <div class="setup-text">
+        <strong id="setup-title"></strong>
+        <p id="setup-body"></p>
+      </div>
+      <div class="setup-actions" id="setup-actions"></div>
+    </section>
+
+    <section class="input-row">
+      <input id="url" type="text" spellcheck="false"
+             placeholder="YouTube-Link einfügen … (mehrere Links: durch Leerzeichen trennen)">
+      <button id="go" class="primary">Laden</button>
+    </section>
+
+    <section class="options">
+      <button id="folder" class="folder" title="Zielordner ändern">
+        <span class="label">Ordner</span>
+        <span class="value" id="folder-value">…</span>
+      </button>
+
+      <label class="field">
+        <span class="label">Qualität</span>
+        <select id="format">
+          <option value="best">Beste (überall abspielbar)</option>
+          <option value="max">Maximum (bis 4K)</option>
+          <option value="720">720p — klein</option>
+          <option value="audio">Nur Ton (MP3)</option>
+        </select>
+      </label>
+
+      <label class="check">
+        <input id="playlist" type="checkbox">
+        <span>Ganze Playlist</span>
+      </label>
+    </section>
+
+    <details class="pairing" id="pairing">
+      <summary>
+        <span class="dot" id="srv-dot"></span>
+        Knopf in Firefox
+        <span class="summary-note" id="srv-label"></span>
+      </summary>
+
+      <div class="pairing-body">
+        <label class="check wide">
+          <input id="srv-on" type="checkbox">
+          <span>Links aus dem Browser annehmen</span>
+        </label>
+
+        <div class="pair-row">
+          <label class="field grow">
+            <span class="label">Port</span>
+            <input id="srv-port" type="number" min="1024" max="65535" step="1">
+          </label>
+          <label class="field grow2">
+            <span class="label">Token</span>
+            <input id="srv-token" type="text" readonly spellcheck="false">
+          </label>
+        </div>
+
+        <div class="pair-row">
+          <button id="srv-copy" class="ghost">Beides kopieren</button>
+          <button id="srv-new" class="ghost">Neuer Token</button>
+          <span class="grow"></span>
+          <span id="srv-msg" class="hint"></span>
+        </div>
+
+        <p class="hint">
+          Port und Token gehören einmalig in die Einstellungen der
+          Firefox-Erweiterung. Ohne Token nimmt Skrizzle nichts an.
+        </p>
+      </div>
+    </details>
+
+    <section class="queue-head">
+      <h2>Downloads</h2>
+      <button id="clear" class="ghost">Fertige entfernen</button>
+    </section>
+
+    <ul id="queue" class="queue"></ul>
+    <p id="empty" class="empty">Noch nichts geladen.</p>
+  </main>
+
+  <footer>
+    <button id="open-folder" class="ghost">Ordner öffnen</button>
+    <span id="status" class="status"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
